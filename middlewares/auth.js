@@ -15,7 +15,7 @@ function authenticate (req, res, next) {
                     }
                 })
         } else {
-            next({code: 401, message: 'Please log in'});
+            next(err);
         }
     } catch (err) {
         next({code: 401, message: 'Please log in'})
