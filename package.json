@@ -10,7 +10,8 @@
     "db:create:development": "sequelize db:create --env development",
     "db:migrate:test": "sequelize db:migrate --env test",
     "db:migrate:development": "sequelize db:migrate --env development",
-    "db:seed:test": "sequelize db:seed:all --env test"
+    "db:seed:test": "sequelize db:seed:all --env test",
+    "start": "node bin/http.js" 
   },
   "repository": {
     "type": "git",
