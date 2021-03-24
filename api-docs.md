@@ -1,5 +1,6 @@
-# E-commerce CMS Server
-This E-commerce CMS App is an application for an admin to control the contents of an e-commerce has. This app has : 
+# E-commerce CMS and Customer Server
+This E-commerce CMS App is an application for an admin to control the contents of an e-commerce has. This E-Commerce Customer App is an application where customers can buy products and put said products into a designated cart.
+This app has : 
 * RESTful endpoints for authentication, authorization and getting APIs
 * JSON formatted response
 * List of Errors and its Responses
@@ -9,10 +10,16 @@ This E-commerce CMS App is an application for an admin to control the contents o
 ## RESTful endpoints
 ```
 POST /login
+POST /register
 GET /products
 POST /products
 PUT /products/:id
 DELETE /products/:id
+GET /carts
+GET /carts/total
+POST /carts/:productIdddf
+PUT /carts/:id
+DELETE /carts/:id
 ```
 
 ---
@@ -28,30 +35,67 @@ not needed
 _Request Body_
 ```
 {
-"email": "<your email>",
-"password": "<your password>",
+    "email": "<your email>",
+    "password": "<your password>",
 }
 ```
 
 _Response (200)_
 ```
 {
-"access_token": "<access_token>",
-"email": "<email>",
-"id": "<id>"
+    "access_token": "<access_token>",
+    "email": "<email>",
+    "id": "<id>",
+    "role": "<role>"
 }
 ```
 
 _Errors_
 ```
 {
-400 - Login Authentication Error,
-500 - Internal Server Error
+    400 - Login Authentication Error,
+    500 - Internal Server Error
 }
 ```
 
 ---
-## 2. GET /products
+## 2. POST /register
+
+> Create a new account for a user
+
+_Request Header_
+```
+not needed
+```
+
+_Request Body_
+```
+{
+    "email": "<your email>",
+    "password": "<your password>",
+}
+```
+
+_Response (200)_
+```
+{
+    "access_token": "<access_token>",
+    "email": "<email>",
+    "id": "<id>",
+    "role": "<role>"
+}
+```
+
+_Errors_
+```
+{
+    400 - Login Authentication Error,
+    500 - Internal Server Error
+}
+```
+
+---
+## 4. GET /products
 
 > Get all products.
 
@@ -104,7 +148,7 @@ _Errors_
 ```
 
 ---
-## 3. POST /products
+## 4. POST /products
 
 > Add a new product
 
@@ -148,7 +192,7 @@ _Errors_
 ```
 
 ---
-## 4. PUT /products/:id
+## 5. PUT /products/:id
 
 > Edit an existing product's information
 
@@ -189,7 +233,7 @@ _Errors_
 ```
 
 ---
-## 5. DELETE /products/:id
+## 6. DELETE /products/:id
 
 > Delete an existing product
 
@@ -220,6 +264,212 @@ _Errors_
 }
 ```
 
+---
+## 7. GET /carts
+
+> Getting a certain customer's cart
+
+_Request Header_
+```
+{
+"access_token" = "<access_token>"
+}
+```
+
+_Request Body_
+```
+not needed
+```
+
+_Response (200)_
+```
+{
+    "data": [
+        {
+            "id": "<id>",
+            "quantity": "<quantity>",
+            "UserId": "<UserId>",
+            "ProductId": "<ProductId>",
+            "createdAt": "<createdAt>",
+            "updatedAt": "<updatedAt>",
+            "Product": {
+                "id": "<id>",
+                "name": "<name>",
+                "image_url": "<image_url>",
+                "price": "<price>",
+                "stock": "<stock>",
+                "createdAt": "<createdAt>",
+                "updatedAt": "<updatedAt>"
+            }
+        },
+        {
+            "id": "<id>",
+            "quantity": "<quantity>",
+            "UserId": "<UserId>",
+            "ProductId": "<ProductId>",
+            "createdAt": "<createdAt>",
+            "updatedAt": "<updatedAt>",
+            "Product": {
+                "id": "<id>",
+                "name": "<name>",
+                "image_url": "<image_url>",
+                "price": "<price>",
+                "stock": "<stock>",
+                "createdAt": "<createdAt>",
+                "updatedAt": "<updatedAt>"
+            }
+        }
+        ...
+    ]
+}
+```
+
+_Errors_
+```
+{
+500 - Internal Server Error
+}
+```
+
+---
+## 8. POST /carts/:productId
+
+> Adding a product to a customer's cart
+
+_Request Header_
+```
+{
+"access_token" = "<access_token>"
+}
+```
+
+_Request Body_
+```
+{
+"quantity" = "<quantity>"
+}
+```
+
+_Response (200)_
+```
+{
+"message": "Successfully incremented quantity column"
+}
+```
+
+_Response (201)_
+```
+{
+"id": "<id>",
+"UserId": "<UserId>",
+"ProductId": "<ProductId>" 
+}
+```
+
+_Errors_
+```
+{
+400 - Quantity Greater than Stock Error
+500 - Internal Server Error
+}
+```
+
+---
+## 9. DELETE /carts/:id
+
+> Delete an existing product from a customer's cart
+
+_Request Header_
+```
+{
+"access_token" = "<access_token>"
+}
+```
+
+_Request Body_
+```
+not needed
+```
+
+_Response (200)_
+```
+{
+"message": "Successfully deleted cart"
+}
+```
+
+_Errors_
+```
+{
+500 - Internal Server Error
+}
+```
+
+---
+## 10. PATCH /carts/:id
+
+> Edit an existing cart item's quantity 
+
+_Request Header_
+```
+{
+"access_token" = "<access_token>"
+}
+```
+
+_Request Body_
+```
+{
+"quantity": "<quantity>",
+}
+```
+
+_Response (200)_
+```
+{
+"message": "Quantity in cart successfully updated"
+}
+```
+
+_Errors_
+```
+{
+400 - Quantity Greater than Stock Error,
+500 - Internal Server Error
+}
+```
+
+---
+## 11. GET /carts/total
+
+> Get the total price of all the customer's items in their cart
+
+_Request Header_
+```
+{
+"access_token": "<access_token>"
+}
+```
+
+_Request Body_
+```
+not needed
+```
+
+_Response (200)_
+```
+{
+"totalPrice": "<totalPrice>"    
+}
+```
+
+_Errors_
+```
+{
+500 - Internal Server Error
+}
+```
+
 &nbsp;
 
 ---
@@ -236,6 +486,13 @@ _Response (400 - Validation Error(s))_
 ```
 {
 "message": "<list of validation errors>"
+}
+```
+
+_Response (400 - Quantity Greater than Stock Error)_
+```
+{
+"message": "Quantity must not be more than stock"
 }
 ```
 

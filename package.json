@@ -7,10 +7,11 @@
     "test": "npx jest",
     "dev": "NODE_ENV=development npx nodemon bin/http.js",
     "db:create:test": "sequelize db:create --env test",
-    "db:create:development": "sequelize db:create --env development",
+    "db:create:dev": "sequelize db:create --env development",
     "db:migrate:test": "sequelize db:migrate --env test",
-    "db:migrate:development": "sequelize db:migrate --env development",
+    "db:migrate:dev": "sequelize db:migrate --env development",
     "db:seed:test": "sequelize db:seed:all --env test",
+    "db:seed:dev": "sequelize db:seed:all --env development",
     "start": "node bin/http.js" 
   },
   "repository": {

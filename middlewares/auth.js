@@ -10,7 +10,7 @@ function authenticate (req, res, next) {
                     if (!data) {
                         next({code: 404, message: 'User not found'});
                     } else {
-                        req.currentUser = {id: data.id, email: data.email, role: data.role};
+                        req.currentUser = {id: data.id, role: data.role}
                         next();
                     }
                 })
@@ -23,7 +23,7 @@ function authenticate (req, res, next) {
 }
 
 function authorize (req, res, next) {
-    if(req.currentUser.role == 'admin') {
+    if(req.currentUser.role === 'admin') {
         next()
     } else {
         next({code: 401, message: 'Access Denied'})
