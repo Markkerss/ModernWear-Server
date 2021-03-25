@@ -144,7 +144,7 @@ _Errors_
 ```
 {
 401 - Authorization Error,
-401 - No Access Token Error,
+401 - Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -189,7 +189,7 @@ _Errors_
 {
 400 - Validation Error(s),
 401 - Authorization Error,
-401 - No Access Token Error,
+401 - Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -231,7 +231,7 @@ _Errors_
 {
 400 - Validation Error(s),
 401 - Authorization Error,
-401 - No Access Token Error,
+401 - Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -264,7 +264,7 @@ _Errors_
 ```
 {
 401 - Authorization Error,
-401 - No Access Token Error,
+401 - Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -332,7 +332,7 @@ _Response (200)_
 _Errors_
 ```
 {
-401 - No Access Token Error,
+401 - Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -376,7 +376,7 @@ _Errors_
 ```
 {
 400 - Quantity Greater than Stock Error,
-401 - No Access Token Error,
+401 - Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -409,7 +409,7 @@ _Errors_
 ```
 {
 401 - Authorization Error,
-401 - No Access Token Error,
+401 - Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -445,7 +445,7 @@ _Errors_
 {
 400 - Quantity Greater than Stock Error,
 401 - Authorization Error,
-401 - No Access Token Error,
+401 - Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -477,7 +477,7 @@ _Response (200)_
 _Errors_
 ```
 {
-401 - No Access Token Error,
+401 - Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -508,7 +508,7 @@ _Response (400 - Quantity Greater than Stock Error)_
 }
 ```
 
-_Response (401 - No Access Token Error)_
+_Response (401 - Access Token Error)_
 ```
 {
 "message": "Please log in"
