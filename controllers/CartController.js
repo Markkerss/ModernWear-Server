@@ -58,8 +58,11 @@ class CartController {
     static deleteCart(req, res, next) {
         Cart.destroy({where: {id: req.params.id, UserId: req.currentUser.id}})
             .then(data => {
-                console.log(data)
-                res.status(200).json({message: "Successfully deleted cart"})
+                if (data === 0) {
+                    next({code: 401, message:'Access Denied'})
+                } else {
+                    res.status(200).json({message: "Successfully deleted cart"})
+                }
             })
             .catch(err => {
                 next(err)
@@ -72,16 +75,20 @@ class CartController {
         }
         Cart.findOne({where: {id: req.params.id, UserId: req.currentUser.id}, include: {model: Product}})
             .then(data => {
-                if(data.Product.stock >= editedCart.quantity) {
-                    Cart.update({quantity: editedCart.quantity},{where: {id: data.id}})
-                        .then(data => {
-                            res.status(200).json({message: "Quantity in cart successfully updated"})
-                        })
-                        .catch(err => {
-                            next(err)
-                        })
+                if (data !== null) {
+                    if(data.Product.stock >= editedCart.quantity) {
+                        Cart.update({quantity: editedCart.quantity},{where: {id: data.id}})
+                            .then(data => {
+                                res.status(200).json({message: "Quantity in cart successfully updated"})
+                            })
+                            .catch(err => {
+                                next(err)
+                            })
+                    } else {
+                        next({code: 400, message:'Quantity must not be more than stock'})
+                    }
                 } else {
-                    next({code: 400, message:'Quantity must not be more than stock'})
+                    next({code: 401, message:'Access Denied'})
                 }
             })
             .catch(err => {

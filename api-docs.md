@@ -1,6 +1,7 @@
 # E-commerce CMS and Customer Server
-This E-commerce CMS App is an application for an admin to control the contents of an e-commerce has. This E-Commerce Customer App is an application where customers can buy products and put said products into a designated cart.
-This app has : 
+This E-commerce CMS App is an application for an admin to control the contents of an e-commerce store. 
+This E-Commerce Customer App is an application where customers can buy products from previously stated e-commerce store and put said products into a designated cart.
+These apps have : 
 * RESTful endpoints for authentication, authorization and getting APIs
 * JSON formatted response
 * List of Errors and its Responses
@@ -17,7 +18,7 @@ PUT /products/:id
 DELETE /products/:id
 GET /carts
 GET /carts/total
-POST /carts/:productIdddf
+POST /carts/:productId
 PUT /carts/:id
 DELETE /carts/:id
 ```
@@ -95,7 +96,7 @@ _Errors_
 ```
 
 ---
-## 4. GET /products
+## 3. GET /products
 
 > Get all products.
 
@@ -142,7 +143,8 @@ _Response (200)_
 _Errors_
 ```
 {
-401 - Authentication Error,
+401 - Authorization Error,
+401 - No Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -186,7 +188,8 @@ _Errors_
 ```
 {
 400 - Validation Error(s),
-401 - Authentication Error,
+401 - Authorization Error,
+401 - No Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -227,7 +230,8 @@ _Errors_
 ```
 {
 400 - Validation Error(s),
-401 - Authentication Error,
+401 - Authorization Error,
+401 - No Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -259,7 +263,8 @@ _Response (200)_
 _Errors_
 ```
 {
-401 - Authentication Error,
+401 - Authorization Error,
+401 - No Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -327,6 +332,7 @@ _Response (200)_
 _Errors_
 ```
 {
+401 - No Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -369,7 +375,8 @@ _Response (201)_
 _Errors_
 ```
 {
-400 - Quantity Greater than Stock Error
+400 - Quantity Greater than Stock Error,
+401 - No Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -401,6 +408,8 @@ _Response (200)_
 _Errors_
 ```
 {
+401 - Authorization Error,
+401 - No Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -435,6 +444,8 @@ _Errors_
 ```
 {
 400 - Quantity Greater than Stock Error,
+401 - Authorization Error,
+401 - No Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -466,6 +477,7 @@ _Response (200)_
 _Errors_
 ```
 {
+401 - No Access Token Error,
 500 - Internal Server Error
 }
 ```
@@ -496,10 +508,17 @@ _Response (400 - Quantity Greater than Stock Error)_
 }
 ```
 
-_Response (401 - Authentication Error)_
+_Response (401 - No Access Token Error)_
 ```
 {
 "message": "Please log in"
+}
+```
+
+_Response (401 - Authorization Error)_
+```
+{
+"message": "Access Denied"
 }
 ```
 
