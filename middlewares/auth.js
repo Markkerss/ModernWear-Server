@@ -26,7 +26,7 @@ function authorize (req, res, next) {
     if(req.currentUser.role === 'admin') {
         next()
     } else {
-        next({code: 401, message: 'Access Denied'})
+        next({code: 403, message: 'Access Denied'})
     }
 }
 

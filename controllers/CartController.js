@@ -59,7 +59,7 @@ class CartController {
         Cart.destroy({where: {id: req.params.id, UserId: req.currentUser.id}})
             .then(data => {
                 if (data === 0) {
-                    next({code: 401, message:'Access Denied'})
+                    next({code: 403, message:'Access Denied'})
                 } else {
                     res.status(200).json({message: "Successfully deleted cart"})
                 }
@@ -88,7 +88,7 @@ class CartController {
                         next({code: 400, message:'Quantity must not be more than stock'})
                     }
                 } else {
-                    next({code: 401, message:'Access Denied'})
+                    next({code: 403, message:'Access Denied'})
                 }
             })
             .catch(err => {
